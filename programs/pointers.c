@@ -5,8 +5,8 @@ int main(){
 
 	int x = 4;
 	int *y;
-	int z = 3;
 	y = &x;
+	int z = *y;
 //    printf("%d \n",x);
 //    printf("%p\n", y);
 //
@@ -19,6 +19,7 @@ int main(){
 
     *y = *y+1;
     printf("%d \n",x);
+    printf("%d", z);
 
 	return 0;
 
