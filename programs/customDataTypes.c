@@ -7,7 +7,7 @@ struct nodeType{
 
 };
 
-typedef struct nodeType Node
+typedef struct nodeType Node;
 
 int main(int argc, char **argv){
     int i,val;
