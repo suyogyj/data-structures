@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stlib.h>
+#include <stdlib.h>
 int main(int argc, char **argv){
 
 //    int x = 2;
@@ -24,14 +24,35 @@ int main(int argc, char **argv){
 
 
     int * a;
-    int n = 10;
+    int i, n, val;
+    n = 3;
+    a = (int *) malloc(n * sizeof(int));
 
-    a = malloc(n * sizeof(int));
-    for(int i = 0; i <n; i++){
+    i = 0;
+    scanf("%d", &val);
+    while(val>0){
 
-        a[i] = i;
+        a[i] = val;
+        i = i+1;
+        if(i >=n) {
+            n = n*2;
+            a = (int *) realloc(a,n * sizeof(int));
+        }
+
+        scanf("%d", &val);
 
     }
+
+    n = i;
+    a = realloc(a, n * sizeof(int));
+
+    for(i = 0; i <n; i++){
+
+        printf("%d", a[i]);
+
+    }
+
+    printf("\n\nDone!\n");
 
     return 0;
 }
