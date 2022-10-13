@@ -3,47 +3,67 @@
 
 struct node {
     int value;
-    struct node *next;
+    struct node *nextPtr;
 };
+typedef struct node listNode;
+typedef listNode *nodePtr;
 
+void insert(nodePtr *ptr, int num){
 
-void printLinkedList(struct node *p){
+    nodePtr newPtr;
+    nodePtr prevPtr;
+    nodePtr curPtr;
+
+    newPtr = malloc(sizeof(listNode));
+
+    if(newPtr != NULL){
+        newPtr->value = num;
+        newPtr->nextPtr = NULL;
+
+        prevPtr = NULL;
+        curPtr = *ptr;
+
+        while(curPtr != NULL && num > curPtr->value){
+            prevPtr = curPtr;
+            curPtr = curPtr->nextPtr;
+        }
+        if(prevPtr == NULL){
+            newPtr->nextPtr = *ptr;
+            *ptr = newPtr;
+        }
+        else {
+            prevPtr->nextPtr = newPtr;
+            newPtr->nextPtr = curPtr;
+        }
+    }
+
+    else{
+        printf("no");
+    }
+}
+
+void printLinkedList(nodePtr p){
 
     while(p != NULL){
-        printf("%d \n", p->value);
-        p  = p->next;
+        printf("%d ,", p->value);
+        p  = p->nextPtr;
     }
 }
 
 int main() {
-    int x,y,z;
-    printf("Enter a number");
-    scanf("%d", &x);
-    printf("Enter a number");
-    scanf("%d", &y);
-    printf("Enter a number");
-    scanf("%d", &z);
+    nodePtr startPtr = NULL;
+    int item;
+    int length;
+    printf("Input length of list: ");
+    scanf("%d", &length);
+    int i;
+    for(i = 0; i < length; i++){
+        printf("Enter a number: ");
+        scanf("%d", &item);
+        insert(&startPtr, item);
+    }
 
 
-    struct node *head;
-    struct node *one = NULL;
-    struct node *two = NULL;
-    struct node *three = NULL;
-
-    one = malloc(sizeof(struct node));
-    two = malloc(sizeof(struct node));
-    three = malloc(sizeof(struct node));
-
-    one->value = x;
-    two->value = y;
-    three->value = z;
-
-    one->next = two;
-    two->next = three;
-    three->next = NULL;
-
-    head = one;
-    printLinkedList(head);
-
+    printLinkedList(startPtr);
 
 }
