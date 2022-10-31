@@ -8,6 +8,8 @@ struct node {
 typedef struct node listNode;
 typedef listNode *nodePtr;
 
+//insert a new node in the linked list
+
 void insert(nodePtr *ptr, int num){
 
     nodePtr newPtr;
@@ -17,8 +19,8 @@ void insert(nodePtr *ptr, int num){
     newPtr = malloc(sizeof(listNode));
 
     if(newPtr != NULL){
-        newPtr->value = num;
-        newPtr->nextPtr = NULL;
+        newPtr->value = num;        //assign value to the new node
+        newPtr->nextPtr = NULL;     //new node points to NULL
 
         prevPtr = NULL;
         curPtr = *ptr;
@@ -38,10 +40,12 @@ void insert(nodePtr *ptr, int num){
     }
 
     else{
-        printf("no");
+        printf("Error");
     }
 }
 
+
+//reverse the list
 void reverse(nodePtr** head){
 
     nodePtr prevPtr = NULL;
