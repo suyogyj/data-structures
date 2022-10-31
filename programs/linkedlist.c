@@ -42,6 +42,23 @@ void insert(nodePtr *ptr, int num){
     }
 }
 
+void reverse(nodePtr** head){
+
+    nodePtr prevPtr = NULL;
+    nodePtr curPtr = *head;
+    nodePtr nextPtr = NULL;
+
+    while(curPtr != NULL){
+        nextPtr = curPtr->nextPtr;
+        curPtr->nextPtr = prevPtr;
+        prevPtr = curPtr;
+        curPtr = nextPtr;
+    }
+
+    *head = prevPtr;
+
+}
+
 void printLinkedList(nodePtr p){
 
     while(p != NULL){
@@ -62,8 +79,9 @@ int main() {
         scanf("%d", &item);
         insert(&startPtr, item);
     }
-
-
+    printLinkedList(startPtr);
+    printf("\n");
+    reverse(&startPtr);
     printLinkedList(startPtr);
 
 }
