@@ -8,6 +8,26 @@ void swap(int *a, int *b)
         *b = temp;
     }
 
+
+int* findAddressOfMax(int* a, int n)
+{
+
+    int* amax;
+    int i;
+    amax = a;
+
+    for(i = 1; i < n; i+=1)
+    {
+        a = a+i;
+        if(*a > *amax){
+            amax = a;
+        }
+    }
+
+    return amax;
+
+}
+
 void selectionSort(int values[], int n){
 
     int i, x, min;
@@ -47,7 +67,11 @@ int main()
     int n =  (sizeof(values)/sizeof(values[0]));
 
     selectionSort(values, n);
+    int* a = &values[0];
+    printf("%d\n", a);
 
+    findAddressOfMax(a, n);
+    printf("%d\n", findAddressOfMax(a,n));
     print(values, n);
     return 0;
 
