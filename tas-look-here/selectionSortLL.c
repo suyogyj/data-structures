@@ -33,7 +33,33 @@ void swap(listNode** nHead, listNode* head, listNode* min, listNode* cMin){
 
 }
 
+listNode* selectionSort(listNode* head){
 
+    if(head->nextPtr == NULL)
+    {
+        return head;
+    }
+    listNode* min = head, * cMin = NULL, * t;
+
+    for(t = head; t->nextPtr != NULL; t = t->nextPtr)
+    {
+        if(t->nextPtr->value < min->value)
+        {
+            min = t->nextPtr;
+            cMin = t;
+        }
+    }
+
+    if(min != head)
+    {
+        swap(&head, head, min, cMin);
+    }
+
+    head->nextPtr = selectionSort(head->nextPtr);
+
+    return head;
+
+}
 
 void printLinkedList(nodePtr p){
 
@@ -58,9 +84,10 @@ int main() {
     printf("List: \n");
     printLinkedList(head);
     printf("\n");
-    reverse(&head);
-    printf("Reversed list: \n");
+    listNode *s = selectionSort(head);
+
     printLinkedList(head);
+
 
 }
 
