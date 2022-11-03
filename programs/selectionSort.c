@@ -9,7 +9,7 @@ void swap(int *a, int *b)
     }
 
 
-int* findAddressOfMax(int* a, int n)
+int* findAddressOfMax(int* a, int n, int values[])
 {
 
     int* amax;
@@ -19,11 +19,11 @@ int* findAddressOfMax(int* a, int n)
     for(i = 1; i < n; i+=1)
     {
         a = a+i;
-        if(*a > *amax){
+        if(values[*a] > values[*amax]){
             amax = a;
         }
     }
-
+    printf("%d", values[*amax]);
     return amax;
 
 }
@@ -63,15 +63,15 @@ void print(int values[], int size)
 
 int main()
 {
-    int values[] = {7, 5, 82, 2, 102, 1};
-    int n =  (sizeof(values)/sizeof(values[0]));
+    int values[] = {3,4,5,6};
+    int n = (sizeof(values)/sizeof(values[0]));
 
     selectionSort(values, n);
     int* a = &values[0];
     printf("%d\n", a);
 
-    findAddressOfMax(a, n);
-    printf("%d\n", findAddressOfMax(a,n));
+    findAddressOfMax(a, n, values);
+
     print(values, n);
     return 0;
 
