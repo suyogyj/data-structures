@@ -25,23 +25,6 @@ void insert(listNode** head, int num){
 }
 
 
-//reverse the list
-void reverse(nodePtr** head){
-
-    nodePtr prevPtr = NULL;
-    nodePtr curPtr = *head;
-    nodePtr nextPtr = NULL;
-
-    while(curPtr != NULL){
-        nextPtr = curPtr->nextPtr;
-        curPtr->nextPtr = prevPtr;
-        prevPtr = curPtr;
-        curPtr = nextPtr;
-    }
-
-    *head = prevPtr;
-
-}
 
 void printLinkedList(nodePtr p){
 
