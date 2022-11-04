@@ -5,8 +5,12 @@ struct node {
     int value;
     struct node* nextPtr;
 };
+
 typedef struct node listNode;
 typedef listNode* nodePtr;
+
+nodePtr head = NULL;
+nodePtr sorted = NULL;
 
 //insert a new node in the linked list
 
@@ -33,31 +37,50 @@ void swap(listNode** nHead, listNode* head, listNode* min, listNode* cMin){
 
 }
 
-listNode* selectionSort(listNode* head){
 
-    if(head->nextPtr == NULL)
+void insertInSorted(listNode* x)
+{
+
+    if(sorted == NULL || sorted->value >= x->value)
     {
-        return head;
+
+        x->nextPtr = sorted;
+        sorted = x;
     }
-    listNode* min = head, * cMin = NULL, * t;
 
-    for(t = head; t->nextPtr != NULL; t = t->nextPtr)
+    else
     {
-        if(t->nextPtr->value < min->value)
+        listNode* curr = sorted;
+
+        while(curr->nextPtr != NULL && curr->nextPtr->value < x->value)
         {
-            min = t->nextPtr;
-            cMin = t;
+            curr = curr->nextPtr;
         }
+
+        x->nextPtr = curr->nextPtr;
+        curr->nextPtr = x;
     }
 
-    if(min != head)
+}
+
+
+listNode* insertionSortLL(listNode* head)
+{
+
+    listNode* curr = head;
+
+    while(curr != NULL)
     {
-        swap(&head, head, min, cMin);
+
+        listNode* next = curr->nextPtr;
+
+        insertInSorted(curr);
+
+        curr = next;
+
     }
 
-    head->nextPtr = selectionSort(head->nextPtr);
-
-    return head;
+    head = sorted;
 
 }
 
@@ -70,7 +93,7 @@ void printLinkedList(nodePtr p){
 }
 
 int main() {
-    nodePtr head = NULL;
+
     int item;
     int length;
     printf("Input length of list: ");
@@ -84,29 +107,10 @@ int main() {
     printf("List: \n");
     printLinkedList(head);
     printf("\n");
-    listNode *s = selectionSort(head);
+    listNode *s = insertionSortLL(head);
 
     printLinkedList(s);
 
 
 }
 
-
-//findAddressOfMax(int* a, int n)
-//{
-//
-//    int* amax;
-//    int i;
-//    amax = a;
-//
-//    for(i = 1; i < n; i+=1)
-//    {
-//        a = a+i;
-//        if(*a > *amax){
-//            amax = a;
-//        }
-//    }
-//
-//    return amax;
-//
-//}
