@@ -86,7 +86,7 @@ int main() {
     printf("\n");
     listNode *s = selectionSort(head);
 
-    printLinkedList(head);
+    printLinkedList(s);
 
 
 }
