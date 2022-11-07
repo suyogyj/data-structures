@@ -15,8 +15,23 @@ void insert(listNode** head, int num){
     listNode* newPtr = malloc(sizeof(struct node));
 
     newPtr->value = num;
-    newPtr->nextPtr = (*head);
-    (*head) = newPtr;
+    newPtr->nextPtr = NULL;
+
+    if(*head == NULL)
+    {
+        *head = newPtr;
+        return;
+    }
+
+    listNode *temp = *head;
+    
+    while(temp->nextPtr != NULL)
+    {
+        temp = temp->nextPtr;
+    }
+
+    temp->nextPtr = newPtr;
+
 
 }
 
