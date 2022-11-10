@@ -57,7 +57,6 @@ int main() {
     }
     printLinkedList(head);
     printf("\n");
-    reverse(&head);
     printLinkedList(head);
 
 }
