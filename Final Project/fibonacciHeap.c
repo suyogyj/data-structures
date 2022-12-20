@@ -400,10 +400,18 @@ int inputMachine(char *s)
     {
         printf("%s",s);
         scanf("%s", &num);
-        int inputToInt = atoi(num);     //converts it to an int
-        inputToInt = (inputToInt - 1) + 1;  //sometimes, string ASCII input gets interpreted as 00, which isn't the same as 0. incrementing and decrementing resets it to 0
+        if(isdigit(*num))
+        {
+            int inputToInt = atoi(num);    //converts it to an int
+            return inputToInt;
+        }
 
-        return inputToInt;
+        else{
+            return INT_MIN;
+        } 
+        // inputToInt = (inputToInt - 1) + 1;  //sometimes, string ASCII input gets interpreted as 00, which isn't the same as 0. incrementing and decrementing resets it to 0
+
+        
     }
 }
 
@@ -501,7 +509,7 @@ int main(int argc, char *argv[])
                     printf("Invalid choice.\n");
                     break;
                 }
-                printf("\nHeap %d chosen.\n", choice);
+                printf("\nHeap %d chosen.\n", choice);            
                 
                 printf("Choose an operation to conduct on the selected heap:\n1 - Insert         5 - Decrease Key \n2 - Delete         6 - Print Heap\n3 - Extract Min    7 - Print Minimum\n4 - Merge Heaps    8 - Exit\n ");
     operations: printf("Enter your choice: ");
@@ -510,18 +518,32 @@ int main(int argc, char *argv[])
 
                 switch (job)
                 {
+
+                label1:
                 case 1: ;               //Insert node
                     int value;
                     char *insertNum = "Enter the number you want to insert: ";
                     value = inputMachine(insertNum);
+
+                    if(value == INT_MIN){
+                        printf("Please enter a valid integer.\n");
+                        goto label1;
+                    }
+
                     insert(heap[choice], value);
                     printf("\n Inserted %d into the heap.", value);
                     break;
 
+                label2:
                 case 2: ;               //Delete node
                     int *success = (int*)malloc(sizeof(int));
                     *success = 0;
                     value  = inputMachine("Enter the value you want to delete: ");
+
+                    if(value == INT_MIN){
+                        printf("Please enter a valid integer.\n");
+                        goto label2;
+                    }
 
                     if(heap[choice]->min != NULL){                      //if heap not empty, delete
                         delete(heap[choice], value, success);
@@ -530,6 +552,7 @@ int main(int argc, char *argv[])
                     if(heap[choice]->min != NULL && *success == 1){     //delete successful
                         printf("Value was deleted.\n");
                     }
+
                     else{
                         printf("Value doesn't exist.\n");
                     }
@@ -551,24 +574,43 @@ int main(int argc, char *argv[])
                 
             label4: case 4: ;        //Merge heaps
                     value = inputMachine("Enter the heap index you want to merge with the current heap. To cancel, enter -1: ");
+
+                    if(value == INT_MIN){
+                        printf("Please enter a valid integer.\n");
+                        goto label4;
+                    }
+
                     if(value >= 0 && value < num)
                     {
                         heap[choice] = mergeHeaps(heap[choice], heap[value]);
                         printf("Heaps %d and %d have been merged.\n", choice, value);
                     }
+
                     else{
                         printf("Invalid input. Please enter a positive integer value which is a valid heap index.\n");
                         goto label4;
                     }
                     break;
 
+                label5:
                 case 5: ;                //Decrease key
                     int *done = (int*)malloc(sizeof(int));
                     *done = 0;
                     int newValue;
                     value = inputMachine("Enter value of node you want to change: ");
+
+                    if(value == INT_MIN){
+                        printf("Please enter a valid integer.\n");
+                        goto label5;
+                    }
+
                     newValue = inputMachine("Enter new value: ");
                     
+                    if(newValue == INT_MIN){
+                        printf("Please enter a valid integer.\n");
+                        goto label5;
+                    }
+
                     if(heap[choice]->min != NULL){
                         findNode(heap[choice], heap[choice]->min, value, newValue, done);
                     }
