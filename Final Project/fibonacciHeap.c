@@ -205,13 +205,12 @@ void link(fibHeap* heap, NodeAddress x, NodeAddress y)
         heap->min = y;                  
     }
 
-    x->left=x;                          //set left and right pointers of x to point to itself, and its parent to y
-    x->right=x;
-    x->parent=y;
+    x->left = x;                          //set left and right pointers of x to point to itself, and its parent to y
+    x->right = x;
+    x->parent = y;
 
-    if(y->child==NULL)                  //if y has no other childrem, make x its child
-    {
-        y->child=x;
+    if(y->child == NULL){                  //if y has no other childrem, make x its child
+        y->child = x;
     }
     else                                //if y has children, insert x into the list of y's children
     {
@@ -221,13 +220,12 @@ void link(fibHeap* heap, NodeAddress x, NodeAddress y)
         (y->child)->left=x;
     }
 
-    if(x->value<(y->child)->value)      //if the value of x is less than the value of the current min, update the min child of y to be x
-    {
+    if(x->value<(y->child)->value){     //if the value of x is less than the value of the current min, update the min child of y to be x
         y->child = x;
     }
 
     y->degree+=1;                      
-    x->mark=0;
+    x->mark = 0;
 }
 
 int degree(fibHeap *heap)
@@ -394,7 +392,7 @@ void printHeap(NodeAddress node, char *s, int x)
 
 int inputMachine(char *s)
 {
-    char num[2];
+    char num[4];
 
     while(true)                         //scans all input as a string,
     {
@@ -468,20 +466,17 @@ int main(int argc, char *argv[])
     {
         if(num == 0)
         {
-            printf("%d", num);
             printf("Input is invalid, please enter a positive integer value.\n");
             num = inputMachine(s);
         }
         else if(num < 0)
         {
-            printf("%d", num);
             printf("Input is invalid, please enter a positive integer value.\n");
             num = inputMachine(s);
-            
         }
         else
         {
-            printf("%d", num);
+            printf("\n%d heaps have been made.\n", num);
             break;
         }
     }
@@ -499,14 +494,14 @@ int main(int argc, char *argv[])
     else{
         while(choice != -1)
         {
-            printf("Choose a heap between index 1 and %d to do operations on. To exit, enter -1.", num);
+            printf("Choose a heap between index 1 and %d to do operations on. To exit, enter -1: ", num);
             char *heapchoice = "";
             choice = inputMachine(heapchoice);
             while(job != 8)
             {   
                 if(choice < -1|| choice == 0 || choice > num)     //make sure that the chosen index exists
                 {
-                    printf("Invalid choice.\n");
+                    printf("\nInvalid choice.\n");
                     break;
                 }
                 printf("\nHeap %d chosen.\n", choice);            
@@ -522,7 +517,7 @@ int main(int argc, char *argv[])
                 label1:
                 case 1: ;               //Insert node
                     int value;
-                    char *insertNum = "Enter the number you want to insert: ";
+                    char *insertNum = "\nEnter the number you want to insert: ";
                     value = inputMachine(insertNum);
 
                     if(value == INT_MIN){
