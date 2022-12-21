@@ -228,11 +228,13 @@ void link(fibHeap* heap, NodeAddress x, NodeAddress y)
     x->mark = 0;
 }
 
-int degree(fibHeap *heap)
+int degree(fibHeap *heap) //degree of the heap
 {
-    return (log2(heap->size)) + 1;      //
+    int degree = (log2(heap->size)) + 1;  
+    return degree;
 }
 
+//
 void consolidate(fibHeap* heap){
     int deg = degree(heap);
     NodeAddress *x;                             //create an array of NodeAddresses with degree+1 elements
@@ -291,6 +293,7 @@ void consolidate(fibHeap* heap){
     }
 }
 
+//remove the minimum element from the heap;
 int extractMin(fibHeap* heap)
 {
     if(heap->min!=NULL)
@@ -341,6 +344,7 @@ int extractMin(fibHeap* heap)
     }
 }
 
+//find a node in the heap and decrease its value
 void findNode(fibHeap *heap,NodeAddress node, int value,int newValue,int *done)
 {
     NodeAddress temp = node;
@@ -390,6 +394,7 @@ void printHeap(NodeAddress node, char *s, int x)
     
 }
 
+//take input and convert it to integer.
 int inputMachine(char *s)
 {
     char num[4];
